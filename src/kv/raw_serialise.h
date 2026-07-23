@@ -148,8 +148,8 @@ namespace ccf::kv
      */
     size_t read_size_prefixed_entry(size_t& start_offset)
     {
-      auto remainder = data_size - data_offset;
       auto entry_size = read_entry<size_t>();
+      const auto remainder = data_size - data_offset;
 
       if (remainder < entry_size)
       {
