@@ -1763,7 +1763,7 @@ TEST_CASE("CBOR: parse max depth")
   REQUIRE_NOTHROW(parse(map_depth2, 2));
 }
 
-TEST_CASE("CBOR: parse max array size")
+TEST_CASE("CBOR: parse max container size")
 {
   auto array = ccf::ds::from_hex("83010203");
   REQUIRE_NOTHROW(parse(array, 16, 3));
