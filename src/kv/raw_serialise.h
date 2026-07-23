@@ -148,8 +148,8 @@ namespace ccf::kv
      */
     size_t read_size_prefixed_entry(size_t& start_offset)
     {
+      auto remainder = data_size - data_offset;
       auto entry_size = read_entry<size_t>();
-      const auto remainder = data_size - data_offset;
 
       if (remainder < entry_size)
       {
@@ -202,14 +202,6 @@ namespace ccf::kv
         T ret{};
         auto* data_ = reinterpret_cast<uint8_t*>(ret.data());
         constexpr size_t size = ret.size() * sizeof(typename T::value_type);
-        const auto remainder = data_size - data_offset;
-        if (remainder < size)
-        {
-          throw std::runtime_error(fmt::format(
-            "Expected {} byte fixed-size entry, found only {}",
-            size,
-            remainder));
-        }
         auto size_ = size;
         serialized::write(data_, size_, data_ptr + data_offset, size);
         data_offset += size;
